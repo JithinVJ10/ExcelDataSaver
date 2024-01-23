@@ -59,7 +59,9 @@ const Home = () => {
 
   //validateTableData
   const validateTableData = () => {
-    // Check if any required fields are empty
+
+    const { vr_no, vrDate, AcName } = headerData;
+    
     const isEmpty = tableData.some(item => (
       item.item_code.trim() === '' ||
       item.item_name.trim() === '' ||
@@ -72,7 +74,7 @@ const Home = () => {
       return false;
     }
   
-    // Check if qty and rate are valid numbers and positive
+    
     const isInvalidNumber = tableData.some(item => (
       (isNaN(item.qty) || item.qty < 1) ||
       (isNaN(item.rate) || item.rate < 1)
@@ -82,8 +84,27 @@ const Home = () => {
       toast.error('Qty and Rate must be valid positive numbers');
       return false;
     }
+
+    if (!vr_no || isNaN(vr_no)) {
+      toast.error('Vr No must be a non-empty number');
+      return false;
+    }
   
-    return true; // All validations passed
+    // Basic validation for Vr Date
+    if (!vrDate) {
+      toast.error('Vr Date must be selected');
+      return false;
+    }
+  
+    // Basic validation for Ac Name
+    if (!AcName.trim()) {
+      toast.error('Ac Name must be a non-empty string');
+      return false;
+    }
+
+
+  
+    return true; 
   };
 
   // Save to DataBase
@@ -97,7 +118,7 @@ const Home = () => {
             vr_no: headerData.vr_no,
             vr_date: headerData.vrDate,
             ac_name: headerData.AcName,
-            ac_amt: total, // Assuming you want to send the total amount as ac_amt
+            ac_amt: total, 
             status: headerData.Status,
           },
           detail_table: tableData.map((rowData) => ({
