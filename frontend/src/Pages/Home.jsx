@@ -6,6 +6,8 @@ import {toast, ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import Modal from '../Components/Modal/Modal'
 import axios from 'axios'
+import './PrintStyles.css'
+import PrintModal from '../Components/Modal/PrintModal'
 
 const Home = () => {
   
@@ -187,9 +189,36 @@ const Home = () => {
     }
   }
 
+  const [showPrint, setShowPrint] = useState(false);
+  const [showPrintModal, setShowPrintModal] = useState(false)
+
+  const pressPrint = ()=>{
+    setShowPrint(true);
+    setShowPrintModal(true)
+  }
+
+  const handlePrint = () => {
+    setShowPrintModal(false)
+    window.print();
+    setTimeout(()=>{
+      setShowPrint(false);
+    },3000)
+    
+  };
   return (
     <div className='grid-container'>
       <ToastContainer/>
+
+      {
+        showPrint ?
+         <>
+            <div id='printableArea'>
+              {/* Your printable content goes here */}
+              <Header total={total} headerData={headerData} setHeaderData={setHeaderData} />
+              <Details tableData={tableData} setTableData={setTableData} subTotalUpdate={subTotalUpdate} total={total} />
+            </div>
+         </> : ""
+      }
     
       <Header total={total} headerData={headerData} setHeaderData={setHeaderData} />
    
@@ -197,9 +226,14 @@ const Home = () => {
       <Details tableData={tableData} setTableData={setTableData} subTotalUpdate={subTotalUpdate} total={total} />
     
     
-      <SideTab  addRow={addRow} saveData={saveData} newPage={newPage} />
+      <SideTab  addRow={addRow} saveData={saveData} newPage={newPage} pressPrint={pressPrint} />
 
       <Modal showModal={showModal} setShowModal={setShowModal} action={action} />
+
+      <PrintModal showPrintModal={showPrintModal} setShowPrintModal={setShowPrintModal} handlePrint={handlePrint} />
+
+      
+      
     
     </div>
   )

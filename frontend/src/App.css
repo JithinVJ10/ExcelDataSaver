@@ -23,3 +23,18 @@ main{
 .side-button{
   background-color: rgb(254, 219, 114);
 }
+
+
+@media print {
+  .grid-container {
+    display: block;
+  }
+
+  main,
+  #sidebar {
+    float: none;
+    width: auto;
+  }
+
+
+}

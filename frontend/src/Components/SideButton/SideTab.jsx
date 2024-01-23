@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SideTab = ({addRow, saveData, newPage }) => {
+const SideTab = ({addRow, saveData, newPage, pressPrint }) => {
 
   return (
     <div className='text-center text-xl font-bold py-36'  id='sidebar'>
@@ -14,7 +14,7 @@ const SideTab = ({addRow, saveData, newPage }) => {
         <button onClick={()=>saveData()} >Save</button>
       </div>
       <div className='py-2 side-button'>
-        <button>Print</button>
+        <button id='printButton' onClick={()=>pressPrint()}>Print</button>
       </div>
       
     </div>
