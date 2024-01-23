@@ -1,0 +1,25 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 100px;
+    grid-template-rows: 0.2fr 6fr;
+    grid-template-areas:
+      'header header header sidebar'
+      'main main main sidebar';
+    height: 100vh;
+  }
+main{
+  grid-area: main;
+}
+
+#sidebar {
+  grid-area: sidebar;
+  
+}
+
+.header {
+  grid-area: header;
+}
+
+.side-button{
+  background-color: rgb(254, 219, 114);
+}
